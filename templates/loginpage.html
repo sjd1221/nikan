@@ -1,0 +1,119 @@
+<html>
+{% load static %}
+<link href="https://fonts.cdnfonts.com/css/iranian-sans" rel="stylesheet">
+
+<style >
+body{
+    font-family: 'Iranian Sans', sans-serif;
+}
+
+img{
+	width: 50%;
+}
+.login {
+    height: 1000px;
+    width: 100%;
+    background: radial-gradient(#ffffff, #D19910);
+    position: relative;
+}
+.login_box {
+    width: 1050px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    box-shadow: 1px 4px 22px -8px #0004;
+    display: flex;
+    overflow: hidden;
+}
+.login_box .left{
+  width: 41%;
+  height: 100%;
+  padding: 25px 25px;
+  
+}
+.login_box .right{
+  width: 59%;
+  height: 100%  
+}
+.left .contact{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 100%;
+    width: 73%;
+    margin: auto;
+}
+.left h3{
+  text-align: center;
+  margin-bottom: 40px;
+}
+.left input {
+    border: none;
+    width: 80%;
+    margin: 15px 0px;
+    border-bottom: 1px solid #4f30677d;
+    padding: 7px 9px;
+    width: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-weight: 600;
+    font-size: 14px;
+}
+.left{
+	background: #fff;
+}
+.submit {
+    border: none;
+    padding: 15px 70px;
+    border-radius: 8px;
+    display: block;
+    margin: auto;
+    margin-top: 120px;
+    background: #8C010F;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+
+.right {
+	background: linear-gradient(#8C010F, #ffffff, #8C010F);
+	color: #fff;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+</style>
+
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<body>
+	<section class="login">
+		<div class="login_box">
+			<div class="left">
+				<div class="contact">
+					<form  class="login-form" action="{% url 'nikan:loginUser' %}" method="post">
+                        {% csrf_token %}
+						<h3 style="color: #8C010F">SIGN IN</h3>
+                        <input type="hidden" name="id" value="{{ user.id }}">
+						<input name="username" autocomplete="off" type="username" placeholder="USERNAME">
+						<input name="password" autocomplete="off" type="password" placeholder="PASSWORD">
+						<button class="submit">LET'S GO</button>
+					</form>
+				</div>
+			</div>
+			<div class="right">
+				<img src="https://east.nikan.hospital/wp-content/uploads/sites/7/2023/03/Logo-1.png" alt="">
+			</div>
+		</div>
+	</section>
+</body>
+</html>

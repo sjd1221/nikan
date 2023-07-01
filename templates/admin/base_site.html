@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<a href="{% url 'admin:index' %}"><img id="site_name" src="https://east.nikan.hospital/wp-content/uploads/sites/7/2023/03/Logo-1.png"></a>
+<!-- {% if user.is_anonymous %}
+  {% include "admin/color_theme_toggle.html" %}
+{% endif %} -->
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

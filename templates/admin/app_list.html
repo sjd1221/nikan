@@ -1,0 +1,84 @@
+{% load i18n %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+{% if app_list %}
+  {% for app in app_list %}
+    <div class="app-{{ app.app_label }} module{% if app.app_url in request.path|urlencode %} current-app{% endif %}">
+      <table>
+        <caption>
+          <a href="{{ app.app_url }}" class="section" title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}">{{ app.name }}</a>
+        </caption>
+        {% for model in app.models %}
+          <tr class="model-{{ model.object_name|lower }}{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+            {% if model.admin_url %}
+              <th scope="row"><a href="{{ model.admin_url }}"{% if model.admin_url in request.path|urlencode %} aria-current="page"{% endif %}>{{ model.name }}</a></th>
+            {% else %}
+              <th scope="row">{{ model.name }}</th>
+            {% endif %}
+
+            {% if model.add_url %}
+              <td><a href="{{ model.add_url }}" class="addlink">{% translate 'Add' %}</a></td>
+            {% else %}
+              <td></td>
+            {% endif %}
+
+            {% if model.admin_url and show_changelinks %}
+              {% if model.view_only %}
+                <td><a href="{{ model.admin_url }}" class="viewlink">{% translate 'View' %}</a></td>
+              {% else %}
+                <td><a href="{{ model.admin_url }}" class="changelink">{% translate 'Change' %}</a></td>
+              {% endif %}
+            {% elif show_changelinks %}
+              <td></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+{% endif %}
+
+
+
+
+<style type="">
+  
+.field-IDIMG{
+  display: none;
+}
+
+</style>
+
+
+
+
+<script >
+$(document).ready(function(){
+  $('#id_IdDoctor').on('blur',function(e){
+    let id = e.target.value;
+  $.get("/adddoctor?IdDoc="+id, function(Doctors , status){
+    let temp = Doctors;
+    $("#id_Name").val(Doctors[0].fields.Name)
+    $("#id_Mobile").val(Doctors[0].fields.Mobile)
+    $("#id_Home").val(Doctors[0].fields.Home)
+    $("#id_Desc").val(Doctors[0].fields.Desc)
+    $("#id_ClinicNum").val(Doctors[0].fields.ClinicNum)
+    $("#id_ClinicAdd").val(Doctors[0].fields.ClinicAdd)
+    $("#id_ClinicShift").val(Doctors[0].fields.ClinicShift)
+    $("#id_Prof").val(Doctors[0].fields.Prof)
+    $("#id_Prof2").val(Doctors[0].fields.Prof2)
+    $("#id_IMG").attr("value","http://localhost:8000/media/" +Doctors[0].fields.IMG)
+    $("#id_Hospital").val(Doctors[0].fields.Hospital)
+  });
+  $("#save").click(function(){
+  $.get("/removeduplicate?IdDoct="+id ,function(Doctors , status){
+  });
+});
+});
+});
+
+
+</script>
